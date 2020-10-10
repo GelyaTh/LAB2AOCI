@@ -64,6 +64,7 @@
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.textBox5 = new System.Windows.Forms.TextBox();
             this.button11 = new System.Windows.Forms.Button();
+            this.numericUpDown10 = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.imageBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.imageBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
@@ -80,6 +81,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown9)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown10)).BeginInit();
             this.SuspendLayout();
             // 
             // imageBox1
@@ -93,7 +95,7 @@
             // button1
             // 
             this.button1.BackColor = System.Drawing.SystemColors.Control;
-            this.button1.Location = new System.Drawing.Point(658, 28);
+            this.button1.Location = new System.Drawing.Point(658, 12);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(104, 35);
             this.button1.TabIndex = 3;
@@ -502,11 +504,34 @@
             this.button11.UseVisualStyleBackColor = true;
             this.button11.Click += new System.EventHandler(this.button11_Click);
             // 
+            // numericUpDown10
+            // 
+            this.numericUpDown10.Location = new System.Drawing.Point(687, 498);
+            this.numericUpDown10.Maximum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.numericUpDown10.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDown10.Name = "numericUpDown10";
+            this.numericUpDown10.Size = new System.Drawing.Size(35, 20);
+            this.numericUpDown10.TabIndex = 41;
+            this.numericUpDown10.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1354, 626);
+            this.ClientSize = new System.Drawing.Size(1420, 626);
+            this.Controls.Add(this.numericUpDown10);
             this.Controls.Add(this.button11);
             this.Controls.Add(this.textBox5);
             this.Controls.Add(this.textBox4);
@@ -560,6 +585,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown9)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown10)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -602,6 +628,7 @@
         private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.TextBox textBox5;
         private System.Windows.Forms.Button button11;
+        private System.Windows.Forms.NumericUpDown numericUpDown10;
     }
 }
 

@@ -166,11 +166,11 @@ namespace AOCI_Lab2
         }
 
         //Медианное размытие
-        public Image<Bgr, byte> GetMedianBlur()
+        public Image<Bgr, byte> GetMedianBlur(int level)
         {
-            return GetMedianBlur(sourceImage);
+            return GetMedianBlur(sourceImage, level);
         }
-        public Image<Bgr, byte> GetMedianBlur(Image<Bgr, byte> source)
+        public Image<Bgr, byte> GetMedianBlur(Image<Bgr, byte> source, int level)
         {
             Image<Bgr, byte> image = source.Copy();
             Image<Bgr, byte> result = image.CopyBlank();
@@ -184,8 +184,8 @@ namespace AOCI_Lab2
                     {
                         window.Clear();
 
-                        for (int i = -1; i < 2; i++)
-                            for (int j = -1; j < 2; j++)
+                        for (int i = -level; i < level + 1; i++)
+                            for (int j = -level; j < level + 1; j++)
                             {
                                 if ((i + y) >= 0 && (j + x) >= 0 && (i + y) < image.Height && (j + x) < image.Width)
                                     window.Add(image.Data[i + y, j + x, ch]);
@@ -263,12 +263,12 @@ namespace AOCI_Lab2
         }
 
         //Акварельный фильтр
-        public Image<Bgr, byte> AquarelFilter(int bright, int contrast, Image<Bgr, byte> maskImage, int weight1, int weight2)
+        public Image<Bgr, byte> AquarelFilter(int bright, int contrast, Image<Bgr, byte> maskImage, int weight1, int weight2, int medianLevel)
         {
             Image<Bgr, byte> processedImage = sourceImage.Copy();
             processedImage = GetBrightImage(bright, processedImage);
             processedImage = GetContrastImage(contrast, processedImage);
-            processedImage = GetMedianBlur(processedImage);
+            processedImage = GetMedianBlur(processedImage, medianLevel) ;
             processedImage = GetAddedImage(processedImage, maskImage, weight1, weight2);
             return processedImage;
         }

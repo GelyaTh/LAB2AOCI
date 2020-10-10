@@ -17,7 +17,7 @@ namespace AOCI_Lab2
     public partial class Form1 : Form
     {
 
-        
+        //private Image<Bgr, byte> sourceImage;//глобальная переменная
         private PhotoShop photoshop;
 
         public Form1()
@@ -29,9 +29,9 @@ namespace AOCI_Lab2
         {
             Image<Bgr, byte> loadedImage;
             OpenFileDialog openFileDialog = new OpenFileDialog();
-            var result = openFileDialog.ShowDialog();  
+            var result = openFileDialog.ShowDialog(); // открытие диалога выбора файла 
 
-            if (result == DialogResult.OK) 
+            if (result == DialogResult.OK) // открытие выбранного файла
             {
                 string fileName = openFileDialog.FileName;
                 loadedImage = new Image<Bgr, byte>(fileName);
@@ -115,7 +115,7 @@ namespace AOCI_Lab2
         private void button5_Click(object sender, EventArgs e)
         {
             if (photoshop is null) return;
-            imageBox2.Image = photoshop.GetMedianBlur().Resize(640, 480, Inter.Linear);
+            imageBox2.Image = photoshop.GetMedianBlur((int)numericUpDown10.Value).Resize(640, 480, Inter.Linear);
         }
 
         //Оконный фильтр
@@ -135,7 +135,7 @@ namespace AOCI_Lab2
         private void button10_Click(object sender, EventArgs e)
         {
             if (photoshop is null) return;
-            imageBox2.Image = photoshop.AquarelFilter(trackBar1.Value, trackBar2.Value, LoadImage(), trackBar4.Value, trackBar5.Value).Resize(640, 480, Inter.Linear);
+            imageBox2.Image = photoshop.AquarelFilter(trackBar1.Value, trackBar2.Value, LoadImage(), trackBar4.Value, trackBar5.Value, (int)numericUpDown10.Value).Resize(640, 480, Inter.Linear);
         }
 
         private void trackBar4_Scroll(object sender, EventArgs e)
@@ -148,6 +148,7 @@ namespace AOCI_Lab2
             trackBar4.Value = 10 - trackBar5.Value;
         }
 
+        //CartoonFilter
         private void button11_Click(object sender, EventArgs e)
         {
             if (photoshop is null) return;
