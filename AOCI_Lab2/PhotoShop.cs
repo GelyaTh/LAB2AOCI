@@ -123,31 +123,117 @@ namespace AOCI_Lab2
         }
 
         //Дополнение
-        public Image<Bgr, byte> GetAddedImage(Image<Bgr, byte> addedImage)
+        public Image<Bgr, byte> GetAddedImage(Image<Bgr, byte> addedImage, int weight1, int weight2)
         {
-            var resultImage = sourceImage.Copy();
-            return resultImage.Add(addedImage);
+            //var resultImage = sourceImage.Copy();
+            //return resultImage.Add(addedImage);
             //return resultImage.AddWeighted(addedImage, 0.5, 0.5, 0);
+            return additionImage(sourceImage, addedImage, (double)weight1 / 10, (double)weight2 / 10);
         }
 
+        //Дополнение для акварельного фильтра
         public Image<Bgr, byte> GetAddedImage(Image<Bgr, byte> image1, Image<Bgr, byte> image2, int weight1, int weight2)
         {
-            var resultImage = image1.Copy();
-            return resultImage.AddWeighted(image2, (double)weight1/10, (double)weight2/10, 0);
+            /*var resultImage = image1.Copy();
+            return resultImage.AddWeighted(image2, (double)weight1/10, (double)weight2/10, 0);*/
+            return additionImage(image1, image2, (double)weight1 / 10, (double)weight2 / 10);
+        }
+
+        public Image<Bgr, byte> additionImage(Image<Bgr, byte> sourceImage, Image<Bgr, byte> sourceImage2, double value1, double value2)
+        {
+            var destImage = sourceImage.Copy();
+            for (int channel = 0; channel < destImage.NumberOfChannels; channel++)
+            {
+                for (int y = 0; y < destImage.Size.Height; y++)
+                {
+                    for (int x = 0; x < destImage.Size.Width; x++)
+                    {
+                        if (sourceImage2 != null)
+                        {
+                            if ((sourceImage.Data[y, x, channel] * value1 + sourceImage2.Data[y, x, channel] * value2) > 255)
+                            {
+                                destImage.Data[y, x, channel] = 255;
+                            }
+                            else
+                            {
+                                destImage.Data[y, x, channel] = Convert.ToByte(sourceImage.Data[y, x, channel] * value1 + sourceImage2.Data[y, x, channel] * value2);
+                            }
+                        }
+                    }
+                }
+
+            }
+            return destImage;
         }
 
         //Исключение
-        public Image<Bgr, byte> GetSubtractedImage(Image<Bgr, byte> subtractedImage)
+        public Image<Bgr, byte> GetSubtractedImage(Image<Bgr, byte> subtractedImage, int weight1, int weight2)
         {
-            var resultImage = sourceImage.Copy();
-            return resultImage.Sub(subtractedImage);
+            /*var resultImage = sourceImage.Copy();
+            return resultImage.Sub(subtractedImage);*/
+            return exceptionImage(sourceImage, subtractedImage, (double)weight1 / 10, (double)weight2 / 10);
+        }
+
+        public Image<Bgr, byte> exceptionImage(Image<Bgr, byte> sourceImage, Image<Bgr, byte> sourceImage2, double value1, double value2)
+        {
+            var destImage = sourceImage.Copy();
+            for (int channel = 0; channel < destImage.NumberOfChannels; channel++)
+            {
+                for (int y = 0; y < destImage.Size.Height; y++)
+                {
+                    for (int x = 0; x < destImage.Size.Width; x++)
+                    {
+                        if (sourceImage2 != null)
+                        {
+                            if ((sourceImage.Data[y, x, channel] * value1 - sourceImage2.Data[y, x, channel] * value2) < 0)
+                            {
+                                destImage.Data[y, x, channel] = 0;
+                            }
+                            else
+                            {
+                                destImage.Data[y, x, channel] = Convert.ToByte(sourceImage.Data[y, x, channel] * value1 - sourceImage2.Data[y, x, channel] * value2);
+                            }
+                        }
+                    }
+                }
+
+            }
+            return destImage;
         }
 
         //Пересечение
-        public Image<Bgr, byte> GetIntersectedImage(Image<Bgr, byte> intersectedImage)
+        public Image<Bgr, byte> GetIntersectedImage(Image<Bgr, byte> intersectedImage, int weight1, int weight2)
         {
-            var resultImage = sourceImage.Copy();
-            return resultImage.And(intersectedImage);
+            /*var resultImage = sourceImage.Copy();
+            return resultImage.And(intersectedImage);*/
+            return intersectionImage(sourceImage, intersectedImage, (double)weight1 / 10, (double)weight2 / 10);
+        }
+
+        public Image<Bgr, byte> intersectionImage(Image<Bgr, byte> sourceImage, Image<Bgr, byte> sourceImage2, double value1, double value2)
+        {
+            var destImage = sourceImage.Copy();
+            for (int channel = 0; channel < destImage.NumberOfChannels; channel++)
+            {
+                for (int y = 0; y < destImage.Size.Height; y++)
+                {
+                    for (int x = 0; x < destImage.Size.Width; x++)
+                    {
+                        if (sourceImage2 != null)
+                        {
+                            if (Convert.ToDouble((sourceImage.Data[y, x, channel] * value1 / 10) * (sourceImage2.Data[y, x, channel] * value2 / 10)) > 255)
+                            {
+                                destImage.Data[y, x, channel] = 255;
+                            }
+                            else
+                            {
+                                destImage.Data[y, x, channel] = Convert.ToByte((sourceImage.Data[y, x, channel] * value1 / 10) * (sourceImage2.Data[y, x, channel] * value2 / 10));
+                            }
+                        }
+                    }
+                }
+
+            }
+            return destImage;
         }
 
         //HSV
@@ -193,10 +279,10 @@ namespace AOCI_Lab2
 
                         window.Sort();
 
-                        if (window.Count % 2 == 0)
+                        /*if (window.Count % 2 == 0)
+                            result.Data[y, x, ch] = Convert.ToByte((window[window.Count / 2] + window[window.Count / 2 - 1]) / 2); 
+                        else*/
                             result.Data[y, x, ch] = window[window.Count / 2];
-                        else
-                            result.Data[y, x, ch] = Convert.ToByte((window[window.Count / 2] + window[window.Count / 2 - 1]) / 2);
                     }
             }
                      

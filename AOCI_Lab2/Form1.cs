@@ -87,21 +87,21 @@ namespace AOCI_Lab2
         private void button7_Click(object sender, EventArgs e)
         {
             if (photoshop is null) return;
-            imageBox2.Image = photoshop.GetAddedImage(LoadImage());
+            imageBox2.Image = photoshop.GetAddedImage(LoadImage(), trackBar4.Value, trackBar5.Value);
         }
 
         //Исключение
         private void button8_Click(object sender, EventArgs e)
         {
             if (photoshop is null) return;
-            imageBox2.Image = photoshop.GetSubtractedImage(LoadImage());
+            imageBox2.Image = photoshop.GetSubtractedImage(LoadImage(), trackBar4.Value, trackBar5.Value);
         }
 
         //Пересечение
         private void button9_Click(object sender, EventArgs e)
         {
             if (photoshop is null) return;
-            imageBox2.Image = photoshop.GetIntersectedImage(LoadImage());
+            imageBox2.Image = photoshop.GetIntersectedImage(LoadImage(), trackBar4.Value, trackBar5.Value);
         }
 
         //HSV
@@ -140,12 +140,12 @@ namespace AOCI_Lab2
 
         private void trackBar4_Scroll(object sender, EventArgs e)
         {
-            trackBar5.Value = 10 - trackBar4.Value;
+            //trackBar5.Value = 10 - trackBar4.Value;
         }
 
         private void trackBar5_Scroll(object sender, EventArgs e)
         {
-            trackBar4.Value = 10 - trackBar5.Value;
+           // trackBar4.Value = 10 - trackBar5.Value;
         }
 
         //CartoonFilter
